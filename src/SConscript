@@ -1,8 +1,24 @@
 import os
 from building import *
 
-# Add source code
+# 当前目录
+cwd = GetCurrentDir()
+
+# 源文件列表
 src = Glob('*.c')
-group = DefineGroup('Applications', src, depend = [''])
+
+# GUI Guider V8 生成的代码
+src += Glob('lvgl_v8/generated/*.c')
+src += Glob('lvgl_v8/generated/images/*.c')
+src += Glob('lvgl_v8/custom/*.c')
+
+# 头文件搜索路径
+path = [cwd]
+path += [os.path.join(cwd, 'lvgl_v8', 'generated')]
+path += [os.path.join(cwd, 'lvgl_v8', 'generated', 'images')]
+path += [os.path.join(cwd, 'lvgl_v8', 'generated', 'guider_customer_fonts')]
+path += [os.path.join(cwd, 'lvgl_v8', 'custom')]
+
+group = DefineGroup('Applications', src, depend = [''], CPPPATH = path)
 
 Return('group')
