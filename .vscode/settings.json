@@ -5,5 +5,17 @@
         "--pch-storage=disk",
         "--query-driver=C:/Users/LuZiang/.sifli/tools/arm-none-eabi-gcc/14.2.1/bin/arm-none-eabi-*",
         "--compile-commands-dir=${workspaceFolder}/project/build_sf32lb52-lchspi-ulp_hcpu"
+    ],
+    "sifli-sdk-codekit.statusBar.buttons": [
+        {
+            "id": "wsb_20260625_184900",
+            "text": "$(rocket) ALL",
+            "tooltip": "ALL",
+            "priority": 90,
+            "action": {
+                "kind": "workflow",
+                "workflowId": "uswf_20260519_213509"
+            }
+        }
     ]
 }
