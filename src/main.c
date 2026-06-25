@@ -1,7 +1,12 @@
 /**
  * @file    main.c
- * @brief   Lv.0 - 纯色背景 + 表盘时钟 + 按钮交互
- * @note    白色背景，圆形表盘，时/分/秒针，数字时间，点击计数按钮
+ * @brief   Lv.0 - 纯色背景 + RTC 表盘时钟 + 按钮交互
+ * @note    白色背景，圆形表盘，读取系统 RTC 时间，点击计数按钮
+ *
+ *    msh 设置时间（系统内置命令）：
+ *      msh /> set_date 2026 6 25
+ *      msh /> set_time 19 30 0
+ *      msh /> list_date
  */
 
 #include "rtthread.h"
@@ -11,13 +16,14 @@
 #include "string.h"
 #include "math.h"
 #include "lvgl.h"
+#include <time.h>
 
 extern rt_err_t littlevgl2rtt_init(const char *name);
 extern void lv_ex_data_pool_init(void);
 
 /* ===================== 表盘常量 ===================== */
 #define WATCH_CENTER_X    (LV_HOR_RES_MAX / 2)     /* 195 */
-#define WATCH_CENTER_Y    (LV_VER_RES_MAX / 2 - 40) /* 偏上，给按钮留空间 */
+#define WATCH_CENTER_Y    (LV_VER_RES_MAX / 2 - 40)
 #define WATCH_RADIUS      130
 #define PI                3.14159265f
 
@@ -34,12 +40,7 @@ static lv_obj_t *g_date_label  = NULL;
 static lv_obj_t *g_count_label = NULL;
 static int g_count = 0;
 
-/* 模拟时间 */
-static int g_hour = 10;
-static int g_min  = 30;
-static int g_sec  = 0;
-
-/* 指针端点坐标（持久化存储，避免栈上临时数组被回收） */
+/* 指针端点坐标（持久化存储） */
 static lv_point_t g_hour_pts[2];
 static lv_point_t g_min_pts[2];
 static lv_point_t g_sec_pts[2];
@@ -71,7 +72,6 @@ static void create_dial_background(void)
     lv_obj_set_style_arc_color(arc, lv_color_make(0x00, 0x5A, 0xCC), LV_PART_INDICATOR);
     lv_obj_set_style_arc_width(arc, 4, LV_PART_INDICATOR);
 
-    /* 中心点 */
     lv_obj_t *dot = lv_obj_create(lv_scr_act());
     lv_obj_set_size(dot, 12, 12);
     lv_obj_align(dot, LV_ALIGN_CENTER, 0, -40);
@@ -90,7 +90,6 @@ static lv_obj_t *create_hand_line(lv_color_t color, int width)
     lv_obj_set_style_line_width(line, width, 0);
     lv_obj_set_style_line_rounded(line, true, 0);
     lv_obj_clear_flag(line, LV_OBJ_FLAG_CLICKABLE);
-    /* 初始两点都在中心（不可见），等定时器更新 */
     lv_point_t pts[2] = {{WATCH_CENTER_X, WATCH_CENTER_Y},
                           {WATCH_CENTER_X, WATCH_CENTER_Y}};
     lv_line_set_points(line, pts, 2);
@@ -109,7 +108,7 @@ static void update_hand(lv_obj_t *line, lv_point_t *pts,
     pts[1].y = end_y;
 
     lv_line_set_points(line, pts, 2);
-    lv_obj_invalidate(line);  /* 强制重绘 */
+    lv_obj_invalidate(line);
 }
 
 /* ===================== 数字时间 ===================== */
@@ -117,38 +116,48 @@ static void update_hand(lv_obj_t *line, lv_point_t *pts,
 static void create_time_display(void)
 {
     g_time_label = lv_label_create(lv_scr_act());
-    lv_label_set_text(g_time_label, "10:30:00");
+    lv_label_set_text(g_time_label, "00:00:00");
     lv_obj_set_style_text_color(g_time_label, lv_color_black(), 0);
     lv_obj_set_style_text_font(g_time_label, &lv_font_montserrat_20, 0);
     lv_obj_align(g_time_label, LV_ALIGN_CENTER, 0, 5);
 
     g_date_label = lv_label_create(lv_scr_act());
-    lv_label_set_text(g_date_label, "2026-06-25");
+    lv_label_set_text(g_date_label, "----/--/--");
     lv_obj_set_style_text_color(g_date_label, lv_color_make(0x60, 0x60, 0x60), 0);
     lv_obj_set_style_text_font(g_date_label, &lv_font_montserrat_14, 0);
     lv_obj_align(g_date_label, LV_ALIGN_CENTER, 0, 30);
 }
 
-/* ===================== 定时器回调 ===================== */
+/* ===================== 定时器回调：读取 RTC ===================== */
 
 static void clock_timer_cb(lv_timer_t *timer)
 {
-    g_sec++;
-    if (g_sec >= 60) { g_sec = 0; g_min++; }
-    if (g_min >= 60) { g_min = 0; g_hour++; }
-    if (g_hour >= 24) { g_hour = 0; }
+    /* 从系统 RTC 读取当前时间 */
+    time_t now = time(RT_NULL);
+    struct tm *t = localtime(&now);
 
-    float sec_angle  = g_sec * 6.0f;
-    float min_angle  = g_min * 6.0f + g_sec * 0.1f;
-    float hour_angle = g_hour * 30.0f + g_min * 0.5f;
+    int hour = t->tm_hour;
+    int min  = t->tm_min;
+    int sec  = t->tm_sec;
 
+    /* 计算角度 */
+    float sec_angle  = sec * 6.0f;
+    float min_angle  = min * 6.0f + sec * 0.1f;
+    float hour_angle = hour * 30.0f + min * 0.5f;
+
+    /* 更新指针 */
     update_hand(g_sec_line, g_sec_pts, SEC_HAND_LEN, sec_angle);
-    update_hand(g_min_line,  g_min_pts,  MIN_HAND_LEN,  min_angle);
+    update_hand(g_min_line, g_min_pts, MIN_HAND_LEN, min_angle);
     update_hand(g_hour_line, g_hour_pts, HOUR_HAND_LEN, hour_angle);
 
-    lv_label_set_text_fmt(g_time_label, "%02d:%02d:%02d",
-                           g_hour, g_min, g_sec);
+    /* 更新数字时间 */
+    lv_label_set_text_fmt(g_time_label, "%02d:%02d:%02d", hour, min, sec);
     lv_obj_invalidate(g_time_label);
+
+    /* 更新日期 */
+    lv_label_set_text_fmt(g_date_label, "%04d-%02d-%02d",
+                           t->tm_year + 1900, t->tm_mon + 1, t->tm_mday);
+    lv_obj_invalidate(g_date_label);
 }
 
 /* ===================== 创建完整表盘 ===================== */
@@ -158,20 +167,11 @@ static void create_watch_face(void)
     create_dial_background();
     create_time_display();
 
-    /* 创建指针：
-     * 时针 = 深蓝色 8px（粗短）
-     * 分针 = 深绿色 5px（中等）
-     * 秒针 = 红色    3px（细长）
-     * 颜色与白色背景形成强对比
-     */
     g_hour_line = create_hand_line(lv_color_make(0x00, 0x33, 0x99), 8);
     g_min_line  = create_hand_line(lv_color_make(0x00, 0x66, 0x33), 5);
     g_sec_line  = create_hand_line(lv_color_make(0xCC, 0x00, 0x00), 3);
 
-    /* 首次绘制指针 */
     clock_timer_cb(NULL);
-
-    /* 每秒更新 */
     lv_timer_create(clock_timer_cb, 1000, NULL);
 }
 
@@ -239,7 +239,7 @@ int main(void)
     create_top_label("SF32LB52 - HuangShanPi", 10);
     create_top_label("Lv.0 - Watch Face + Button", 30);
 
-    /* 4. 表盘 */
+    /* 4. 表盘（读取 RTC 时间） */
     create_watch_face();
 
     /* 5. 按钮 */
@@ -254,7 +254,7 @@ int main(void)
 
     lv_img_cache_invalidate_src(NULL);
 
-    rt_kprintf("Lv.0: Watch face + button ready\n");
+    rt_kprintf("Lv.0: Watch face ready. Use 'set_date' and 'set_time' to set RTC.\n");
 
     /* 7. 主循环 */
     while (1)

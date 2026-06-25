@@ -1,0 +1,202 @@
+Queued: scons --board=sf32lb52-lchspi-ulp -j8
+Working directory: c:\Users\LuZiang\Documents\code\huangshanpi-watch-tutorial\lv0-black-bg\project
+Command: scons --board=sf32lb52-lchspi-ulp -j8
+正在使用缓存的 SiFli SDK 环境。
+scons: Reading SConscript files ...
+Board: sf32lb52-lchspi-ulp_hcpu
+Adding ftab subproject for chip: SF32LB52X (ptab v1/v2)
+========
+Multi-Project Info
+--------
+full_name       main.bootloader
+parent          main
+bsp_root        C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\example\boot_loader\project\butterflmicro\ram_v2
+build_dir       build_sf32lb52-lchspi-ulp_hcpu/bootloader
+link_script     C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\example/boot_loader/project/butterflmicro/ram_v2\link
+ptab            C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\customer\boards\sf32lb52-lchspi-ulp\ptab.json
+embedded:       False
+--------
+full_name       main
+parent          
+bsp_root        C:\Users\LuZiang\Documents\code\huangshanpi-watch-tutorial\lv0-black-bg\project
+build_dir       build_sf32lb52-lchspi-ulp_hcpu/
+link_script     C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\drivers/cmsis/sf32lb52x/Templates/gcc/hcpu/link
+ptab            C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\customer\boards\sf32lb52-lchspi-ulp\ptab.json
+--------
+full_name       main.ftab
+parent          main
+bsp_root        C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\example\flash_table\sf32lb52x_common_v2
+build_dir       build_sf32lb52-lchspi-ulp_hcpu/ftab
+link_script     C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\drivers/cmsis/sf32lb52x/Templates/gcc/hcpu/link
+ptab            C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\customer\boards\sf32lb52-lchspi-ulp\ptab.json
+embedded:       False
+========
+scons: done reading SConscript files.
+scons: Building targets ...
+scons: building associated VariantDir targets: build_sf32lb52-lchspi-ulp_hcpu
+Generating build_sf32lb52-lchspi-ulp_hcpu\bootloader\link_copy.lds ...
+CC build_sf32lb52-lchspi-ulp_hcpu\src\main.o
+Building compilation database build_sf32lb52-lchspi-ulp_hcpu\compile_commands.json
+Building compilation database build_sf32lb52-lchspi-ulp_hcpu\bootloader\compile_commands.json
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\src\mem.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\src\memheap.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\src\memheap2.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\src\mempool.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\src\object.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\src\scheduler.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\src\signal.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\src\thread.o
+C:\Users\LuZiang\Documents\code\huangshanpi-watch-tutorial\lv0-black-bg\src\main.c:261:12: error: conflicting types for 'set_time'; have 'int(int,  char **)'
+  261 | static int set_time(int argc, char **argv)
+      |            ^~~~~~~~
+In file included from C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\rtos\rtthread\components\drivers\include/rtdevice.h:34,
+                 from C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\rtos\rtthread\bsp\sifli\drivers/drv_lcd.h:10,
+                 from C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\middleware\lvgl/lv_conf_sifli.h:201,
+                 from C:/Users/LuZiang/Documents/code/OpenSiFli/SiFli-SDK/main/external/lvgl_v8/src/lv_conf_kconfig.h:12,
+                 from C:/Users/LuZiang/Documents/code/OpenSiFli/SiFli-SDK/main/external/lvgl_v8/src/lv_conf_internal.h:15,
+                 from C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\external\lvgl_v8/src/misc/lv_log.h:16,
+                 from C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\external\lvgl_v8/lvgl.h:25,
+                 from C:\Users\LuZiang\Documents\code\huangshanpi-watch-tutorial\lv0-black-bg\src\main.c:13:
+C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\rtos\rtthread\components\drivers\include/drivers/rtc.h:15:10: note: previous declaration of 'set_time' with type 'rt_err_t(rt_uint32_t,  rt_uint32_t,  rt_uint32_t)' {aka 'long int(long unsigned int,  long unsigned int,  long unsigned int)'}
+   15 | rt_err_t set_time(rt_uint32_t hour, rt_uint32_t minute, rt_uint32_t second);
+      |          ^~~~~~~~
+scons: *** [build_sf32lb52-lchspi-ulp_hcpu\src\main.o] Error 1
+scons: building terminated because of errors.
+SiFli: Build 已完成，退出码 1。
+Queued: scons --board=sf32lb52-lchspi-ulp --target=json
+Working directory: c:\Users\LuZiang\Documents\code\huangshanpi-watch-tutorial\lv0-black-bg\project
+Command: scons --board=sf32lb52-lchspi-ulp --target=json
+正在使用缓存的 SiFli SDK 环境。
+scons: Reading SConscript files ...
+Board: sf32lb52-lchspi-ulp_hcpu
+Adding ftab subproject for chip: SF32LB52X (ptab v1/v2)
+========
+Multi-Project Info
+--------
+full_name       main.bootloader
+parent          main
+bsp_root        C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\example\boot_loader\project\butterflmicro\ram_v2
+build_dir       build_sf32lb52-lchspi-ulp_hcpu/bootloader
+link_script     C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\example/boot_loader/project/butterflmicro/ram_v2\link
+ptab            C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\customer\boards\sf32lb52-lchspi-ulp\ptab.json
+embedded:       False
+--------
+full_name       main
+parent          
+bsp_root        C:\Users\LuZiang\Documents\code\huangshanpi-watch-tutorial\lv0-black-bg\project
+build_dir       build_sf32lb52-lchspi-ulp_hcpu/
+link_script     C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\drivers/cmsis/sf32lb52x/Templates/gcc/hcpu/link
+ptab            C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\customer\boards\sf32lb52-lchspi-ulp\ptab.json
+--------
+full_name       main.ftab
+parent          main
+bsp_root        C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\example\flash_table\sf32lb52x_common_v2
+build_dir       build_sf32lb52-lchspi-ulp_hcpu/ftab
+link_script     C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\drivers/cmsis/sf32lb52x/Templates/gcc/hcpu/link
+ptab            C:\Users\LuZiang\Documents\code\OpenSiFli\SiFli-SDK\main\customer\boards\sf32lb52-lchspi-ulp\ptab.json
+embedded:       False
+========
+scons: done reading SConscript files.
+scons: Building targets ...
+scons: building associated VariantDir targets: build_sf32lb52-lchspi-ulp_hcpu
+Generating build_sf32lb52-lchspi-ulp_hcpu\bootloader\link_copy.lds ...
+LINK build_sf32lb52-lchspi-ulp_hcpu\bootloader\bootloader.elf
+Building compilation database build_sf32lb52-lchspi-ulp_hcpu\bootloader\compile_commands.json
+Building compilation database build_sf32lb52-lchspi-ulp_hcpu\compile_commands.json
+CC build_sf32lb52-lchspi-ulp_hcpu\src\main.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\src\timer.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\libcpu\arm\cortex-m33\cpuport.o
+AS build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\libcpu\arm\cortex-m33\context_gcc.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\libcpu\arm\common\backtrace.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\libcpu\arm\common\div0.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\libcpu\arm\common\showmem.o
+CXX build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\cplusplus\cxx_crt.o
+CXX build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\cplusplus\cxx_mutex.o
+CXX build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\cplusplus\cxx_semaphore.o
+CXX build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\cplusplus\cxx_thread.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\cplusplus\cxx_crt_init.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\dfs\src\dfs.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\dfs\src\dfs_file.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\dfs\src\dfs_fs.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\dfs\src\dfs_posix.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\dfs\src\poll.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\dfs\src\select.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\dfs\filesystems\devfs\devfs.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\finsh\shell.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\finsh\symbol.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\finsh\cmd.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\finsh\msh.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\finsh\msh_cmd.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\finsh\msh_file.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\libc\compilers\common\gmtime_r.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\libc\compilers\common\unistd.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\libc\compilers\newlib\libc.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\libc\compilers\newlib\libc_syms.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\libc\compilers\newlib\stdio.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\libc\compilers\newlib\syscalls.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\libc\compilers\newlib\time.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\utilities\llt_mem\llt_mem.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lv_ex_data.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_analogclk.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_barcode.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_comp.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_composite.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_corner.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_curvetext.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_emoji.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_ezipa.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_font.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_gesture.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_header.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_idximg.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_input.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_popup.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_rlottie.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_theme_1.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\middleware\lvgl\lvsf\lvsf_utils.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\audio\audio.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\audio\audio_pipe.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\hwtimer\hwtimer.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\i2c\i2c_core.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\i2c\i2c_dev.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\i2c\i2c-bit-ops.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\misc\pin.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\misc\adc.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\misc\rt_drv_pwm.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\mtd\mtd_nor.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\rtc\rtc.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\serial\serial.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\spi\spi_core.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\spi\spi_dev.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\src\completion.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\src\dataqueue.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\src\pipe.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\src\ringblk_buf.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\src\ringbuffer.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\src\ringbuffer32.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\src\waitqueue.o
+CC build_sf32lb52-lchspi-ulp_hcpu\sifli_sdk\rtos\kernel\components\drivers\src\workqueue.o
+Generating build_sf32lb52-lchspi-ulp_hcpu\link_copy.lds ...
+LINK build_sf32lb52-lchspi-ulp_hcpu\main.elf
+Generating build_sf32lb52-lchspi-ulp_hcpu\main.bin ...
+Generating build_sf32lb52-lchspi-ulp_hcpu\main.hex ...
+Generating build_sf32lb52-lchspi-ulp_hcpu\ftab\board\ftab.c ...
+CC build_sf32lb52-lchspi-ulp_hcpu\ftab\board\ftab.o
+Generating build_sf32lb52-lchspi-ulp_hcpu\ftab\ptab.h ...
+Generating build_sf32lb52-lchspi-ulp_hcpu\ftab\link_copy.lds ...
+LINK build_sf32lb52-lchspi-ulp_hcpu\ftab\ftab.elf
+Generating build_sf32lb52-lchspi-ulp_hcpu\ftab\ftab.bin ...
+Generating build_sf32lb52-lchspi-ulp_hcpu\ftab\ftab.hex ...
+Generating build_sf32lb52-lchspi-ulp_hcpu\download.bat ...
+Building compilation database build_sf32lb52-lchspi-ulp_hcpu\ftab\compile_commands.json
+Generating build_sf32lb52-lchspi-ulp_hcpu\ftab\ftab.asm ...
+Generating build_sf32lb52-lchspi-ulp_hcpu\main.asm ...
+scons: done building targets.
+ERROR: All .map files were excluded by --exclude filter (bootloader, ftab). Nothing to report.
+sdk_size.py returned non-zero exit code: 1
+================================================================================
+Memory Usage Analysis
+================================================================================
+================================================================================
+Project file index written to C:/Users/LuZiang/Documents/code/huangshanpi-watch-tutorial/lv0-black-bg/project/build_sf32lb52-lchspi-ulp_hcpu\codebase_index.json
+SiFli: Generate Codebase Index 已完成，退出码 0。
