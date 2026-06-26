@@ -18,9 +18,12 @@ extern "C" {
 
 __attribute__((unused)) void kb_event_cb(lv_event_t *e);
 __attribute__((unused)) void ta_event_cb(lv_event_t *e);
+#if LV_USE_ANALOGCLOCK != 0
 void clock_count(int *hour, int *min, int *sec);
+#endif
 
 
+void screen_analog_clock_1_timer(lv_timer_t *timer);
 
 #ifdef __cplusplus
 }

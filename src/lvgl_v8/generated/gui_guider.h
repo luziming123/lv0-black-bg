@@ -14,6 +14,7 @@ extern "C" {
 #endif
 
 #include "lvgl.h"
+#include "lv_analogclock.h"
 
 typedef struct
 {
@@ -21,6 +22,7 @@ typedef struct
 	lv_obj_t *screen;
 	bool screen_del;
 	lv_obj_t *screen_img_1;
+	lv_obj_t *screen_analog_clock_1;
 }lv_ui;
 
 typedef void (*ui_setup_scr_t)(lv_ui * ui);
@@ -47,6 +49,7 @@ extern lv_ui guider_ui;
 void setup_scr_screen(lv_ui *ui);
 LV_IMG_DECLARE(_SLL_alpha_450x450);
 
+LV_FONT_DECLARE(lv_font_montserratMedium_12)
 
 
 #ifdef __cplusplus

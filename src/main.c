@@ -1,7 +1,6 @@
 /**
  * @file    main.c
- * @brief   Lv.0 - NXP GUI Guider V8 UI 移植到黄山派
- * @note    将 NXP GUI Guider 设计的界面（LVGL V8）集成到 SF32LB52 开发板
+ * @brief   NXP GUI Guider V8 UI 移植到黄山派
  */
 
 #include "rtthread.h"
@@ -20,8 +19,6 @@ extern void lv_ex_data_pool_init(void);
 /* GUI Guider 全局 UI 结构体 */
 lv_ui guider_ui;
 
-/* ===================== 主函数 ===================== */
-
 int main(void)
 {
     rt_uint32_t ms;
@@ -36,13 +33,13 @@ int main(void)
     /* 3. 初始化 GUI Guider 生成的 UI */
     setup_ui(&guider_ui);
 
-    /* 4. 初始化事件回调（如有） */
+    /* 4. 初始化事件回调 */
     events_init(&guider_ui);
 
-    /* 5. 初始化自定义代码（如有） */
+    /* 5. 初始化自定义代码 */
     custom_init(&guider_ui);
 
-    rt_kprintf("Lv.0: GUI Guider V8 UI loaded.\n");
+    rt_kprintf("GUI Guider V8 UI loaded.\n");
 
     /* 6. 主循环 */
     while (1)
