@@ -12,6 +12,7 @@
 #include "widgets_init.h"
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 
 __attribute__((unused)) void kb_event_cb (lv_event_t *e) {
@@ -84,10 +85,18 @@ extern int screen_analog_clock_1_sec_value;
 
 void screen_analog_clock_1_timer(lv_timer_t *timer)
 {
-    clock_count(&screen_analog_clock_1_hour_value, &screen_analog_clock_1_min_value, &screen_analog_clock_1_sec_value);
+    /* 读取系统 RTC 时间，支持 set_date / set_time 命令后自动更新 */
+    time_t now = time(NULL);
+    struct tm *t = localtime(&now);
+    screen_analog_clock_1_hour_value = t->tm_hour;
+    screen_analog_clock_1_min_value  = t->tm_min;
+    screen_analog_clock_1_sec_value  = t->tm_sec;
     if (lv_obj_is_valid(guider_ui.screen_analog_clock_1))
     {
-        lv_analogclock_set_time(guider_ui.screen_analog_clock_1, screen_analog_clock_1_hour_value, screen_analog_clock_1_min_value, screen_analog_clock_1_sec_value);
+        lv_analogclock_set_time(guider_ui.screen_analog_clock_1,
+            screen_analog_clock_1_hour_value,
+            screen_analog_clock_1_min_value,
+            screen_analog_clock_1_sec_value);
     }
 }
 
